@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toNumber } from "lodash";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -129,7 +129,12 @@ const DotStep = styled.span`
   ${({ isSelected }) => isSelected && ActiveStateStyle}
 `;
 
-const Carousel = ({ items = [], defaultSelected = 0, showTitle = false }) => {
+const Carousel = ({
+  items = [],
+  defaultSelected = 0,
+  showTitle = false,
+  autoMoveCarousel = false,
+}) => {
   const [selectedItemIndex, setSelectedItemIndex] = useState(
     toNumber(defaultSelected)
   );
@@ -143,6 +148,16 @@ const Carousel = ({ items = [], defaultSelected = 0, showTitle = false }) => {
       return key === NEXT_KEY ? prevIndex + 1 : prevIndex - 1;
     });
   };
+
+  useEffect(() => {
+    if (autoMoveCarousel) {
+      const interval = setInterval(() => {
+        moveCarousel(NEXT_KEY);
+      }, 10000);
+      return () => clearInterval(interval);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <CarouselContainer>
@@ -188,6 +203,7 @@ Carousel.propTypes = {
   ).isRequired,
   defaultSelected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   showTitle: PropTypes.bool,
+  autoMoveCarousel: PropTypes.bool,
 };
 
 export default Carousel;
