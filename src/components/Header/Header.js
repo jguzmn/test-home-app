@@ -23,6 +23,7 @@ const HeaderContainer = styled.nav`
   ${verticalAlignCenter};
 
   position: fixed;
+  overflow: hidden;
   z-index: 5;
   top: 0px;
   left: 0px;
