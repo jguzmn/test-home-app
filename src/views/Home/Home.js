@@ -7,6 +7,7 @@ import mockedCategories from "mocks/en-us/product-categories.json";
 
 import SlideShow from "components/UI/SlideShow";
 import MainTitle from "components/UI/MainTitle";
+import Carousel from "components/UI/Carousel";
 
 const CategoriesContainer = styled.div``;
 
