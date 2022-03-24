@@ -7,6 +7,12 @@ const GlobalStyle = createGlobalStyle`
     padding: 0px;
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
+
+    *::placeholder, * {
+      font-family: 'Nunito', sans-serif;;
+    }
+
+    
   }
 `;
 

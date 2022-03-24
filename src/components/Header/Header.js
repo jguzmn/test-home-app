@@ -14,7 +14,7 @@ const verticalAlignCenter = css`
 `;
 
 const HeaderContainer = styled.nav`
-  padding: 0rem 5rem;
+  padding: 0rem 8rem;
   background: white;
   justify-content: space-between;
   min-height: 4.5rem;

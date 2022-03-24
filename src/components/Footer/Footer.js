@@ -10,12 +10,13 @@ const FooterContainer = styled.div`
   width: -webkit-fill-available; /* Mozilla-based browsers will ignore this. */
   width: fill-available;
   background-color: ${MAIN_COLOR};
-  padding: 2rem 4rem;
+  padding: 2rem 8rem;
 `;
 
 const FooterText = styled.span`
   font-family: Times, "Times New Roman";
   color: white;
+  padding-left: 0.5rem;
 `;
 
 const Footer = () => {
