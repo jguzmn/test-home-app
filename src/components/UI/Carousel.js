@@ -2,13 +2,10 @@ import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
 import { toNumber } from "lodash";
 import styled, { css } from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 
 import { MAIN_COLOR, COMPLEMENTARY_COLOR } from "constants/styles";
+
+import { PreviousButton, NextButton } from "./ControlButtons";
 
 const PREV_KEY = "prev";
 const NEXT_KEY = "next";
@@ -71,16 +68,11 @@ const CarouselItemTitle = styled.span`
   border-radius: 2px;
 `;
 
-const ActionButton = styled(FontAwesomeIcon)`
-  cursor: pointer;
-  user-select: none;
-  text-decoration: none;
-
+const ControlCarouselButtonStyles = css`
   /* Positon */
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  width: auto;
   padding: 2rem;
   margin-top: -1rem;
 
@@ -95,12 +87,14 @@ const ActionButton = styled(FontAwesomeIcon)`
   }
 `;
 
-const PrevButton = styled(ActionButton)`
+const PrevBtn = styled(PreviousButton)`
+  ${ControlCarouselButtonStyles}
   left: 0;
   border-radius: 0 3px 3px 0;
 `;
 
-const NextButton = styled(ActionButton)`
+const NextBtn = styled(NextButton)`
+  ${ControlCarouselButtonStyles}
   right: 0;
   border-radius: 3px 0 0 3px;
 `;
@@ -153,7 +147,7 @@ const Carousel = ({
     if (autoMoveCarousel) {
       const interval = setInterval(() => {
         moveCarousel(NEXT_KEY);
-      }, 10000);
+      }, 20000);
       return () => clearInterval(interval);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,11 +164,8 @@ const Carousel = ({
           {showTitle && <CarouselItemTitle>{itemData.title}</CarouselItemTitle>}
         </CarouselItem>
       ))}
-      <PrevButton icon={faChevronLeft} onClick={() => moveCarousel(PREV_KEY)} />
-      <NextButton
-        icon={faChevronRight}
-        onClick={() => moveCarousel(NEXT_KEY)}
-      />
+      <PrevBtn handleClick={() => moveCarousel(PREV_KEY)} />
+      <NextBtn handleClick={() => moveCarousel(NEXT_KEY)} />
       <DotsStepperContainer>
         {items.map(({ id }, index) => (
           <DotStep
