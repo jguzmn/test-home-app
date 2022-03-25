@@ -18,6 +18,10 @@ const Home = () => {
   return (
     <Fragment>
       <SlideShow items={bannerImages} showTitle autoMoveSlideShow></SlideShow>
+      <CategoriesContainer>
+        <MainTitle>Our Categories</MainTitle>
+        <Carousel items={categories} visibleItemsNumber={3} />
+      </CategoriesContainer>
     </Fragment>
   );
 };
