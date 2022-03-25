@@ -1,16 +1,30 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { MAIN_COLOR, GRAY_COLOR } from "constants/styles";
 import { PREV_KEY, NEXT_KEY } from "constants/uiComponentsKeys";
-import { PreviousButton, NextButton } from "components/UI/ControlButtons";
+import {
+  XS_BREAK_POINT,
+  SM_BREAK_POINT,
+  MD_BREAK_POINT,
+  LG_BREAK_POINT,
+  XL_BREAK_POINT,
+} from "constants/styles";
 
 import { FadeIn } from "utils/animations";
+import useWindowDimensions from "utils/hooks/useWindowDimensions";
 
+import { PreviousButton, NextButton } from "components/UI/ControlButtons";
 import Grid from "components/Layout/Grid";
 import Column from "components/Layout/Column";
 import CarouselItem from "./CarouselItem";
+
+const XS_SIZE_VISIBLE_ITEMS_NUMBER = 1;
+const SM_SIZE_VISIBLE_ITEMS_NUMBER = 2;
+const MD_SIZE_VISIBLE_ITEMS_NUMBER = 2;
+const LG_SIZE_VISIBLE_ITEMS_NUMBER = 3;
+const XL_SIZE_VISIBLE_ITEMS_NUMBER = 3;
 
 const CarouselContainer = styled.div`
   display: flex;
@@ -25,7 +39,7 @@ const CarouselColumn = styled(Column)`
 `;
 
 const ItemsContainer = styled(Grid)`
-  display: flex;
+  justify-content: center;
 `;
 
 const CommonControlStyles = css`
@@ -49,11 +63,33 @@ const NextBtn = styled(NextButton)`
   ${CommonControlStyles}
 `;
 
-const Carousel = ({ items, visibleItemsNumber = 3 }) => {
+const getVisibleItems = (width) => {
+  if (width <= XS_BREAK_POINT) return XS_SIZE_VISIBLE_ITEMS_NUMBER;
+  if (width >= SM_BREAK_POINT && width < MD_BREAK_POINT)
+    return SM_SIZE_VISIBLE_ITEMS_NUMBER;
+  if (width >= MD_BREAK_POINT && width < LG_BREAK_POINT)
+    return MD_SIZE_VISIBLE_ITEMS_NUMBER;
+  if (width >= LG_BREAK_POINT && width < XL_BREAK_POINT)
+    return LG_SIZE_VISIBLE_ITEMS_NUMBER;
+  if (width >= XL_BREAK_POINT) return XL_SIZE_VISIBLE_ITEMS_NUMBER;
+};
+
+const Carousel = ({ items }) => {
+  const { width } = useWindowDimensions();
+  const visibleItemsNumber = useRef(getVisibleItems(width));
+
   const [visibleItemsIndexes, setVisibleItemsIndexes] = useState({
     initial: 0,
-    final: visibleItemsNumber - 1,
+    final: visibleItemsNumber.current - 1,
   });
+
+  useEffect(() => {
+    visibleItemsNumber.current = getVisibleItems(width);
+    setVisibleItemsIndexes((prevIndexes) => ({
+      initial: 0,
+      final: visibleItemsNumber.current - 1,
+    }));
+  }, [width]);
 
   const shoudlShowColumn = (index) =>
     index >= visibleItemsIndexes.initial && index <= visibleItemsIndexes.final;
@@ -62,13 +98,13 @@ const Carousel = ({ items, visibleItemsNumber = 3 }) => {
     setVisibleItemsIndexes(({ initial, final }) => {
       if (key === PREV_KEY && initial === 0)
         return {
-          initial: items.length - visibleItemsNumber,
+          initial: items.length - visibleItemsNumber.current,
           final: items.length - 1,
         };
       if (key === NEXT_KEY && final === items.length - 1)
         return {
           initial: 0,
-          final: visibleItemsNumber - 1,
+          final: visibleItemsNumber.current - 1,
         };
       return key === NEXT_KEY
         ? {
@@ -84,7 +120,13 @@ const Carousel = ({ items, visibleItemsNumber = 3 }) => {
   return (
     <CarouselContainer>
       <PrevBtn handleClick={() => moveCarousel(PREV_KEY)} />
-      <ItemsContainer itemsPerColumn={visibleItemsNumber}>
+      <ItemsContainer
+        xs={XS_SIZE_VISIBLE_ITEMS_NUMBER}
+        sm={SM_SIZE_VISIBLE_ITEMS_NUMBER}
+        md={MD_SIZE_VISIBLE_ITEMS_NUMBER}
+        lg={LG_SIZE_VISIBLE_ITEMS_NUMBER}
+        xl={XL_SIZE_VISIBLE_ITEMS_NUMBER}
+      >
         {items.map(({ id, data: itemData }, index) => (
           <CarouselColumn key={id} isVisible={shoudlShowColumn(index)}>
             <CarouselItem
