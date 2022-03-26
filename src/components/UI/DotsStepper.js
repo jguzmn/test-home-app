@@ -2,11 +2,12 @@ import { noop } from "lodash";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 
-import { MAIN_COLOR } from "constants/styles";
+import { MAIN_COLOR, COMPLEMENTARY_COLOR } from "constants/styles";
 
 const ActiveStateStyle = css`
-  background-color: ${MAIN_COLOR};
   cursor: pointer;
+  background-color: ${MAIN_COLOR};
+  border: 0.5px solid ${COMPLEMENTARY_COLOR};
 `;
 
 const DotsStepperContainer = styled.div`
