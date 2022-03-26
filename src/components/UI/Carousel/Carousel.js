@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { useState, useEffect, useRef } from "react";
+import { range, first, last } from "lodash";
+import { useState, useRef, useEffect } from "react";
 
 import { MAIN_COLOR, GRAY_COLOR } from "constants/styles";
 import { PREV_KEY, NEXT_KEY } from "constants/uiComponentsKeys";
@@ -35,7 +36,7 @@ const CarouselContainer = styled.div`
 
 const CarouselColumn = styled(Column)`
   ${FadeIn}
-  display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
+  display: flex;
 `;
 
 const ItemsContainer = styled(Grid)`
@@ -63,7 +64,7 @@ const NextBtn = styled(NextButton)`
   ${CommonControlStyles}
 `;
 
-const getVisibleItems = (width) => {
+const getVisibleItemsNumber = (width) => {
   if (width <= XS_BREAK_POINT) return XS_SIZE_VISIBLE_ITEMS_NUMBER;
   if (width >= SM_BREAK_POINT && width < MD_BREAK_POINT)
     return SM_SIZE_VISIBLE_ITEMS_NUMBER;
@@ -76,45 +77,33 @@ const getVisibleItems = (width) => {
 
 const Carousel = ({ items }) => {
   const { width } = useWindowDimensions();
-  const visibleItemsNumber = useRef(getVisibleItems(width));
+  const visibleItemsNumber = useRef(getVisibleItemsNumber(width));
 
-  const [visibleItemsIndexes, setVisibleItemsIndexes] = useState({
-    initial: 0,
-    final: visibleItemsNumber.current - 1,
-  });
+  const [visibleItemsIndexes, setVisibleItemsIndexes] = useState(
+    range(visibleItemsNumber.current)
+  );
 
   useEffect(() => {
-    visibleItemsNumber.current = getVisibleItems(width);
-    setVisibleItemsIndexes((prevIndexes) => ({
-      initial: 0,
-      final: visibleItemsNumber.current - 1,
-    }));
+    visibleItemsNumber.current = getVisibleItemsNumber(width);
+    setVisibleItemsIndexes(range(visibleItemsNumber.current));
   }, [width]);
 
-  const shoudlShowColumn = (index) =>
-    index >= visibleItemsIndexes.initial && index <= visibleItemsIndexes.final;
+  const removeInitialElement = (array) => [...array.slice(1)];
+
+  const removeLastElement = (array) => [...array.slice(0, -1)];
 
   const moveCarousel = (key) =>
-    setVisibleItemsIndexes(({ initial, final }) => {
-      if (key === PREV_KEY && initial === 0)
-        return {
-          initial: items.length - visibleItemsNumber.current,
-          final: items.length - 1,
-        };
-      if (key === NEXT_KEY && final === items.length - 1)
-        return {
-          initial: 0,
-          final: visibleItemsNumber.current - 1,
-        };
+    setVisibleItemsIndexes((prevVisibleItems) => {
+      if (key === PREV_KEY && first(prevVisibleItems) === 0)
+        return [items.length - 1, ...removeLastElement(prevVisibleItems)];
+      if (key === NEXT_KEY && last(prevVisibleItems) === items.length - 1)
+        return [...removeInitialElement(prevVisibleItems), 0];
       return key === NEXT_KEY
-        ? {
-            initial: initial + 1,
-            final: final + 1,
-          }
-        : {
-            initial: initial - 1,
-            final: final - 1,
-          };
+        ? [
+            ...removeInitialElement(prevVisibleItems),
+            last(prevVisibleItems) + 1,
+          ]
+        : [first(prevVisibleItems) - 1, ...removeLastElement(prevVisibleItems)];
     });
 
   return (
@@ -127,15 +116,18 @@ const Carousel = ({ items }) => {
         lg={LG_SIZE_VISIBLE_ITEMS_NUMBER}
         xl={XL_SIZE_VISIBLE_ITEMS_NUMBER}
       >
-        {items.map(({ id, data: itemData }, index) => (
-          <CarouselColumn key={id} isVisible={shoudlShowColumn(index)}>
-            <CarouselItem
-              src={itemData?.main_image?.url}
-              alt={itemData?.main_image?.alt}
-              label={itemData.name}
-            ></CarouselItem>
-          </CarouselColumn>
-        ))}
+        {visibleItemsIndexes.map((visibleItemIndex) => {
+          const { id, data: itemData } = items[visibleItemIndex];
+          return (
+            <CarouselColumn key={id}>
+              <CarouselItem
+                src={itemData?.main_image?.url}
+                alt={itemData?.main_image?.alt}
+                label={itemData.name}
+              ></CarouselItem>
+            </CarouselColumn>
+          );
+        })}
       </ItemsContainer>
       <NextBtn handleClick={() => moveCarousel(NEXT_KEY)} />
     </CarouselContainer>

@@ -7,6 +7,7 @@ import SquaredLabel from "./../SquaredLabel";
 const ItemImage = styled.img`
   width: 100%;
   transition: opacity 0.5s ease;
+  border-radius: 5px;
 `;
 
 const ItemLabel = styled(SquaredLabel)`
@@ -36,6 +37,7 @@ const ItemOverlay = styled.div`
   opacity: 0;
   transition: 0.5s ease;
   transform: translate(-50%, -50%);
+  border-radius: 5px;
 `;
 
 const ItemContainer = styled.div`
@@ -47,6 +49,7 @@ const ItemContainer = styled.div`
   position: relative;
   opacity: 1;
   border: 0.5px solid rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
 
   &:hover ${ItemImage} {
     opacity: 0.7;
