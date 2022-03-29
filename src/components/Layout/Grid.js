@@ -13,7 +13,7 @@ import {
 } from "constants/styles";
 
 const ColumnWidthStyles = (value) => css`
-  flex: 0 0 calc(${100 / value}% - 2rem);
+  flex: 0 0 calc(${100 / value}% - 1.5rem);
 `;
 
 const Grid = styled.div`
@@ -24,7 +24,6 @@ const Grid = styled.div`
 
   & ${Column} {
     flex: 0 0 1;
-    padding: 0.5rem;
   }
 
   @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {

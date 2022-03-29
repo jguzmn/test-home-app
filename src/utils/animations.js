@@ -14,18 +14,4 @@ const FadeIn = css`
   animation-duration: 1s;
 `;
 
-const FadeOut = css`
-  @keyframes fadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
-
-  animation-name: fadeOut;
-  animation-duration: 1s;
-`;
-
-export { FadeIn, FadeOut };
+export { FadeIn };
