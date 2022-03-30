@@ -36,7 +36,7 @@ const IconContainer = styled.span`
   border-bottom-right-radius: 0px;
   border-right: 1px solid ${MAIN_COLOR};
   padding: 0.5rem;
- 
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -69,6 +69,7 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   align-self: center;
+  align-items: stretch;
 
   padding: 0px;
   position: relative;

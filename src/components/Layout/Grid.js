@@ -12,8 +12,10 @@ import {
   XL_BREAK_POINT_PX,
 } from "constants/styles";
 
+const SIDES_PADDING = 0.5;
+
 const ColumnWidthStyles = (value) => css`
-  flex: 0 0 calc(${100 / value}% - 1.5rem);
+  width: calc(${100 / value}% - ${SIDES_PADDING*2}rem);
 `;
 
 const Grid = styled.div`
@@ -23,7 +25,7 @@ const Grid = styled.div`
   width: 100%;
 
   & ${Column} {
-    flex: 0 0 1;
+    padding: 0.8rem ${SIDES_PADDING}rem;
   }
 
   @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
