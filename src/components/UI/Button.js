@@ -2,16 +2,18 @@ import PropTypes from "prop-types";
 import { noop } from "lodash";
 import styled, { css } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCartShopping,
-  faCartPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCartShopping, faCartPlus } from "@fortawesome/free-solid-svg-icons";
 
 import {
   MAIN_COLOR,
   SECONDARY_COLOR,
   LIGHT_COLOR,
   GRAY_COLOR,
+  XS_BREAK_POINT_PX,
+  SM_BREAK_POINT_PX,
+  MD_BREAK_POINT_PX,
+  LG_BREAK_POINT_PX,
+  XL_BREAK_POINT_PX,
 } from "constants/styles";
 import { FadeIn } from "utils/animations";
 
@@ -43,6 +45,26 @@ const IconContainer = styled.span`
 
   background-color: ${SECONDARY_COLOR};
   color: white;
+
+  @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    font-size: 0.9rem;
+  }
+
+  @media only screen and (min-width: ${SM_BREAK_POINT_PX}) {
+    font-size: 1rem;
+  }
+
+  @media only screen and (min-width: ${MD_BREAK_POINT_PX}) {
+    font-size: 1.1rem;
+  }
+
+  @media only screen and (min-width: ${LG_BREAK_POINT_PX}) {
+    font-size: 1.25rem;
+  }
+
+  @media only screen and (min-width: ${XL_BREAK_POINT_PX}) {
+    font-size: 1.5rem;
+  }
 `;
 
 const LabelContainer = styled.span`
@@ -61,6 +83,20 @@ const LabelContainer = styled.span`
   font-weight: bold;
   color: ${GRAY_COLOR};
   transition: all 0.5s ease;
+
+  @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    font-size: 0.9rem;
+    padding: 0rem 0.5rem;
+  }
+
+  @media only screen and (min-width: ${MD_BREAK_POINT_PX}) {
+    font-size: 0.95rem;
+    padding: 0rem 0.75rem;
+  }
+
+  @media only screen and (min-width: ${LG_BREAK_POINT_PX}) {
+    font-size: 1rem;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -103,8 +139,8 @@ const Button = ({ className, children, label, handleClick = noop }) => {
   return (
     <StyledButton className={className} onClick={handleClick}>
       <IconContainer>
-        <ShopIcon icon={faCartShopping} size="xl" />
-        <AddToCartIcon icon={faCartPlus} size="xl" />
+        <ShopIcon icon={faCartShopping} />
+        <AddToCartIcon icon={faCartPlus} />
       </IconContainer>
       <LabelContainer>{label}</LabelContainer>
       {children}

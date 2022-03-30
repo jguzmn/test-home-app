@@ -19,6 +19,7 @@ const ProductCardContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
 
   transition: 0.3s ease;
   box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.05);
@@ -30,10 +31,6 @@ const ProductCardContainer = styled.div`
     transform: scale(1.03);
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
   }
-
-  /* &:hover ${ProductName}, &:hover ${AddToCartButton} {
-    transform: scale(1.03);
-  } */
 `;
 
 const CardImage = styled.img`
@@ -57,7 +54,7 @@ const ProductDetails = styled.div`
   border-top-right-radius: 0px;
 
   ${BorderRadiusStyle}
-  
+
   background-image: linear-gradient(180deg,
     transparent,
     rgba(186, 169, 127, 0.07)

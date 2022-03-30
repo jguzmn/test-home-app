@@ -14,7 +14,7 @@ const CardsContainer = styled.div`
 const ProductsCards = ({ items }) => {
   return (
     <CardsContainer>
-      <Grid xs={1} sm={2} md={3} lg={4}>
+      <Grid xs={2} sm={2} md={3} lg={4}>
         {items.map(({ id, data: itemData }, index) => (
           <Column key={id}>
             <ProductCard

@@ -12,25 +12,29 @@ import {
   XL_BREAK_POINT_PX,
 } from "constants/styles";
 
-const SIDES_PADDING = 0.5;
-
 const ColumnWidthStyles = (value) => css`
-  width: calc(${100 / value}% - ${SIDES_PADDING*2}rem);
+  width: calc(${100 / value}% - var(--padding-sides) * 2);
 `;
 
 const Grid = styled.div`
+  --padding-sides: 0.5rem;
+
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
   width: 100%;
+  justify-content: flex-start;
 
   & ${Column} {
-    padding: 0.8rem ${SIDES_PADDING}rem;
+    padding: 0.8rem var(--padding-sides);
   }
 
   @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    --padding-sides: 0.25rem;
+
     & ${Column} {
       ${({ xs }) => !isNil(xs) && ColumnWidthStyles(xs)}
+      padding-top: 0.4rem;
+      padding-bottom: 0.4rem;
     }
   }
 
