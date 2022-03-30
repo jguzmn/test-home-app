@@ -6,6 +6,8 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 import { GRAY_COLOR, MAIN_COLOR } from "constants/styles";
 
+import { XS_BREAK_POINT_PX } from "constants/styles";
+
 const Icon = styled(FontAwesomeIcon)`
   transition: color 250ms ease-in-out;
 `;
@@ -37,6 +39,10 @@ const SearchInput = styled.input`
     border: unset;
     box-shadow: none;
     outline: none;
+  }
+
+  @media screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    width: 8rem;
   }
 `;
 

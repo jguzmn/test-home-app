@@ -1,34 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-import logo from "assets/full-logo.png";
+import fullLogo from "assets/full-logo.png";
+import logo from "assets/logo.jpeg";
 
 import NavigationTabs from "./NavigationTabs";
 import SearchBar from "./SearchBar";
 import ShoppingIcon from "./ShoppingIcon";
 import navigationTabsList from "./navigationList";
+import HeaderContainer from "./HeaderContainer";
+
+import useWindowDimensions from "utils/hooks/useWindowDimensions";
+
+import {
+  XS_BREAK_POINT,
+  MD_BREAK_POINT,
+  XS_BREAK_POINT_PX,
+  MD_BREAK_POINT_PX,
+  LG_BREAK_POINT_PX,
+} from "constants/styles";
 
 const verticalAlignCenter = css`
   display: flex;
   align-items: center;
   align-self: stretch;
-`;
-
-const HeaderContainer = styled.nav`
-  padding: 0rem 8rem;
-  background: white;
-  justify-content: space-between;
-  min-height: 4.5rem;
-  border-bottom: 0.5px rgb(211 211 211 / 60%) solid;
-  box-shadow: 1px 1px 20px 1px rgb(68 68 68 / 5%);
-  ${verticalAlignCenter};
-
-  position: fixed;
-  overflow: hidden;
-  z-index: 5;
-  top: 0px;
-  left: 0px;
-  right: 0px;
 `;
 
 const NavigationContainer = styled.div`
@@ -39,6 +34,18 @@ const Logo = styled.img`
   height: 2.8rem;
   margin-right: 1rem;
   cursor: pointer;
+
+  @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    & {
+      margin-left: 1rem;
+    }
+  }
+
+  @media only screen and (min-width: ${MD_BREAK_POINT_PX}) and (max-width: ${LG_BREAK_POINT_PX}) {
+    & {
+      margin-right: 0rem;
+    }
+  }
 `;
 
 const SiteActionsContainer = styled.div`
@@ -47,6 +54,10 @@ const SiteActionsContainer = styled.div`
 
 const Header = () => {
   const navigate = useNavigate();
+  const { width } = useWindowDimensions();
+
+  const isMobile = () => width < XS_BREAK_POINT;
+  const isSmallScreen = () => width < MD_BREAK_POINT;
 
   const handleLogoClick = () => {
     navigate("/", { replace: true });
@@ -55,8 +66,11 @@ const Header = () => {
   return (
     <HeaderContainer>
       <NavigationContainer>
-        <Logo src={logo} onClick={handleLogoClick} />
-        <NavigationTabs tabList={navigationTabsList} />
+        <Logo
+          src={isSmallScreen() ? logo : fullLogo}
+          onClick={handleLogoClick}
+        />
+        {!isMobile() && <NavigationTabs tabList={navigationTabsList} />}
       </NavigationContainer>
       <SiteActionsContainer>
         <SearchBar placeholder="Search" />

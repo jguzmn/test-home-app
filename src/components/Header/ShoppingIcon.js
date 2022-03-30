@@ -3,6 +3,8 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
 import styled from "styled-components";
 
+import { XS_BREAK_POINT_PX, MD_BREAK_POINT_PX } from "constants/styles";
+
 import { GRAY_COLOR, MAIN_COLOR } from "constants/styles";
 
 const Icon = styled(FontAwesomeIcon)`
@@ -26,6 +28,14 @@ const ShoppingIconContainer = styled.div`
 
   &:hover ${Icon}, &:hover ${ShopItems} {
     color: ${MAIN_COLOR};
+  }
+
+  @media screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    padding: 0.5rem 1rem;
+  }
+
+  @media screen and (max-width: ${MD_BREAK_POINT_PX}) {
+    padding: 0.5rem;
   }
 `;
 
