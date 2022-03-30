@@ -11,6 +11,7 @@ import {
   MD_BREAK_POINT,
   LG_BREAK_POINT,
   XL_BREAK_POINT,
+  XS_BREAK_POINT_PX,
 } from "constants/styles";
 
 import { FadeIn } from "utils/animations";
@@ -32,6 +33,10 @@ const CarouselContainer = styled.div`
   align-items: center;
   justify-content: center;
   padding: 1rem 0;
+
+  @media screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    padding: 0;
+  }
 `;
 
 const CarouselColumn = styled(Column)`

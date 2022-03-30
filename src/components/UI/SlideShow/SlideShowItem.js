@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 
+import { XS_BREAK_POINT_PX } from "constants/styles";
+
 import SquaredLabel from "./../SquaredLabel";
 
 const FadeAnimation = css`
@@ -33,6 +35,10 @@ const ItemTitle = styled(SquaredLabel)`
   bottom: 3rem;
   left: 50%;
   transform: translate(-50%, 0);
+
+  @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    bottom: 2rem;
+  }
 `;
 
 const SlideShowItem = ({

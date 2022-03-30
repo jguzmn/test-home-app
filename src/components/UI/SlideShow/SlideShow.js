@@ -4,6 +4,7 @@ import { toNumber } from "lodash";
 import styled, { css } from "styled-components";
 
 import { PREV_KEY, NEXT_KEY } from "constants/uiComponentsKeys";
+import { XS_BREAK_POINT_PX } from "constants/styles";
 
 import { PreviousButton, NextButton } from "../ControlButtons";
 
@@ -33,6 +34,11 @@ const ControlSlideShowButtonStyles = css`
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  @media screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    font-size: 2rem;
+    padding: 1rem;
   }
 `;
 

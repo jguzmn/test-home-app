@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 import {
+  XS_BREAK_POINT_PX,
+  SM_BREAK_POINT_PX,
   MD_BREAK_POINT_PX,
   LG_BREAK_POINT_PX,
   XL_BREAK_POINT_PX,
@@ -16,9 +18,14 @@ const Container = styled.div`
   margin-top: 4.5rem;
   padding: 0 8rem;
 
-  @media only screen and (max-width: ${MD_BREAK_POINT_PX}) {
+  @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
     & {
       padding: 0;
+    }
+  }
+  @media only screen and (min-width: ${SM_BREAK_POINT_PX}) {
+    & {
+      padding: 0 var(--base-padding);
     }
   }
 
