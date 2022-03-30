@@ -23,30 +23,35 @@ const FooterContainer = styled.div`
   @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
     & {
       padding: 1rem 2rem;
+      line-height: 1.1;
     }
   }
 
   @media only screen and (min-width: ${SM_BREAK_POINT_PX}) {
     & {
       padding: 1rem 2rem;
+      line-height: 1.2;
     }
   }
 
   @media only screen and (min-width: ${MD_BREAK_POINT_PX}) {
     & {
       padding: 1rem 4rem;
+      line-height: 1.3;
     }
   }
 
   @media only screen and (min-width: ${LG_BREAK_POINT_PX}) {
     & {
       padding: 1rem 6rem;
+      line-height: 1.4;
     }
   }
 
   @media only screen and (min-width: ${XL_BREAK_POINT_PX}) {
     & {
       padding: 1rem 8rem;
+      line-height: 1.5;
     }
   }
 `;
@@ -54,7 +59,23 @@ const FooterContainer = styled.div`
 const FooterText = styled.span`
   font-family: Times, "Times New Roman";
   color: white;
-  padding-left: 0.5rem;
+  @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    & {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media only screen and (min-width: ${SM_BREAK_POINT_PX}) {
+    & {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media only screen and (min-width: ${LG_BREAK_POINT_PX}) {
+    & {
+      font-size: 1rem;
+    }
+  }
 `;
 
 const Footer = () => {
