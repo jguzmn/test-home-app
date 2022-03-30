@@ -37,7 +37,7 @@ const LinkContent = styled.span`
   transition: all ease 0.1s;
 
   @media only screen and (max-width: ${MD_BREAK_POINT_PX}) {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   } ;
 `;
 

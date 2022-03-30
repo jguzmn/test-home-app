@@ -4,7 +4,11 @@ import { toNumber } from "lodash";
 import styled, { css } from "styled-components";
 
 import { PREV_KEY, NEXT_KEY } from "constants/uiComponentsKeys";
-import { XS_BREAK_POINT_PX } from "constants/styles";
+import {
+  XS_BREAK_POINT_PX,
+  SM_BREAK_POINT_PX,
+  LG_BREAK_POINT_PX,
+} from "constants/styles";
 
 import { PreviousButton, NextButton } from "../ControlButtons";
 
@@ -37,8 +41,21 @@ const ControlSlideShowButtonStyles = css`
   }
 
   @media screen and (max-width: ${XS_BREAK_POINT_PX}) {
+    font-size: 1.5rem;
+    padding: 0.75rem;
+    margin-top: 0rem;
+  }
+
+  @media screen and (min-width: ${SM_BREAK_POINT_PX}) {
     font-size: 2rem;
     padding: 1rem;
+    margin-top: -0.5rem;
+  }
+
+  @media screen and (min-width: ${LG_BREAK_POINT_PX}) {
+    font-size: 2.5rem;
+    padding: 2rem;
+    margin-top: -1rem;
   }
 `;
 
