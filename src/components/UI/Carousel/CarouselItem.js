@@ -6,6 +6,7 @@ import SquaredLabel from "./../SquaredLabel";
 
 const ItemImage = styled.img`
   width: 100%;
+  display: flex;
   transition: opacity 0.5s ease;
   border-radius: 5px;
 `;

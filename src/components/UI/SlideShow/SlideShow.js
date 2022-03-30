@@ -14,6 +14,7 @@ const SlideShowContainer = styled.div`
   width: 100%;
   position: relative;
   margin: auto;
+  margin-bottom: 1.5rem;
 `;
 
 const ControlSlideShowButtonStyles = css`

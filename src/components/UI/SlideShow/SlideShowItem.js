@@ -24,6 +24,7 @@ const ItemContainer = styled.div`
 
 const ItemImage = styled.img`
   width: 100%;
+  display: flex;
 `;
 
 const ItemTitle = styled(SquaredLabel)`

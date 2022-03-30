@@ -19,7 +19,7 @@ const MainTitle = styled.h2`
   ${({ type }) => titleStyles[type]}
 
   letter-spacing: -0.9px;
-  margin: 1.5rem 0rem;
+  margin: 1rem 0rem;
 `;
 
 export default MainTitle;
