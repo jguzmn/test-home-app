@@ -9,11 +9,22 @@ const Icon = styled(FontAwesomeIcon)`
   transition: color 250ms ease-in-out;
 `;
 
+const ShopItems = styled.span`
+  color: ${GRAY_COLOR};
+
+  padding: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+`;
+
 const ShoppingIconContainer = styled.div`
   padding: 1rem;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  &:hover ${Icon} {
+  &:hover ${Icon}, &:hover ${ShopItems} {
     color: ${MAIN_COLOR};
   }
 `;
@@ -28,6 +39,7 @@ const ShoppingIcon = () => (
       size="lg"
       color={GRAY_COLOR}
     />
+    <ShopItems>0</ShopItems>
   </ShoppingIconContainer>
 );
 

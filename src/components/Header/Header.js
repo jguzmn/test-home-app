@@ -6,6 +6,7 @@ import logo from "assets/full-logo.png";
 import NavigationTabs from "./NavigationTabs";
 import SearchBar from "./SearchBar";
 import ShoppingIcon from "./ShoppingIcon";
+import navigationTabsList from "./navigationList";
 
 const verticalAlignCenter = css`
   display: flex;
@@ -39,10 +40,6 @@ const Logo = styled.img`
   margin-right: 1rem;
   cursor: pointer;
 `;
-const navigationTabsList = [
-  { redirectRoute: "/home", tabContent: "HOME" },
-  { redirectRoute: "/products", tabContent: "PRODUCTS" },
-];
 
 const SiteActionsContainer = styled.div`
   ${verticalAlignCenter};
