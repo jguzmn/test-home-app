@@ -44,8 +44,10 @@ const LinkContent = styled.span`
 const Link = styled(NavLink)`
   text-decoration: none;
   font-weight: 800;
-  padding: 1rem 0.8rem;
+
   position: relative;
+  padding: 1rem 0.8rem;
+  width: 100%;
   ${verticalAlignCenter};
 
   @media only screen and (max-width: ${LG_BREAK_POINT_PX}) {

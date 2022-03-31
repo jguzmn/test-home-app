@@ -15,21 +15,25 @@ const verticalAlignCenter = css`
 `;
 
 const HeaderContainer = styled.nav`
-  padding: 0rem 8rem;
   background: white;
-  justify-content: space-between;
-  min-height: 4.5rem;
-  border-bottom: 0.5px rgb(211 211 211 / 60%) solid;
-  box-shadow: 1px 1px 20px 1px rgb(68 68 68 / 5%);
-  ${verticalAlignCenter};
+  padding: 0rem 8rem;
 
-  width: -webkit-fill-available;
+  /* Position */
+  min-height: 4.5rem;
   position: fixed;
   overflow: hidden;
-  z-index: 5;
   top: 0px;
   left: 0px;
   right: 0px;
+  z-index: 5;
+
+  /* Alignment */
+  ${verticalAlignCenter}
+  justify-content: space-between;
+
+  /* Border */
+  border-bottom: 0.5px rgb(211 211 211 / 60%) solid;
+  box-shadow: 1px 1px 20px 1px rgb(68 68 68 / 5%);
 
   @media only screen and (max-width: ${XS_BREAK_POINT_PX}) {
     & {

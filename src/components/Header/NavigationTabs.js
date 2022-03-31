@@ -15,9 +15,10 @@ const NavigationList = styled.ul`
   ${verticalAlignCenter};
 `;
 
-const NavigationTabs = ({ tabList }) => {
+const NavigationTabs = ({ tabList, handleNavClick, className, children }) => {
   return (
-    <NavigationList>
+    <NavigationList className={className} onClick={handleNavClick}>
+      {children}
       {tabList.map((navItem, idx) => {
         return <NavigationTab key={idx} {...navItem} />;
       })}
@@ -25,13 +26,21 @@ const NavigationTabs = ({ tabList }) => {
   );
 };
 
+/*
+  className and children props are optional, they're just used
+  whenever we want to apply styles from outside using styled-components library
+*/
 NavigationTabs.propTypes = {
   tabList: PropTypes.arrayOf(
     PropTypes.shape({
       redirectRoute: PropTypes.string,
-      tabContent: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+      label: PropTypes.string,
+      icon: PropTypes.object,
     })
   ).isRequired,
+  handleNavClick: PropTypes.func,
+  className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 export default NavigationTabs;

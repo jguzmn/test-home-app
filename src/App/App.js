@@ -13,8 +13,8 @@ function App() {
   return (
     <BrowserRouter>
       <ErrorBoundary>
+        <GlobalStyle />
         <AppContainer>
-          <GlobalStyle />
           <Header />
           <ContentContainer>
             <Router />

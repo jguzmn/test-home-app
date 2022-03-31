@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 import ShoppingIcon from "./ShoppingIcon";
 import navigationTabsList from "./navigationList";
 import HeaderContainer from "./HeaderContainer";
+import MobileSideNavigation from "./MobileSideNavigation";
 
 import useWindowDimensions from "utils/hooks/useWindowDimensions";
 
@@ -66,6 +67,7 @@ const Header = () => {
   return (
     <HeaderContainer>
       <NavigationContainer>
+        {isMobile() && <MobileSideNavigation tabList={navigationTabsList} />}
         <Logo
           src={isSmallScreen() ? logo : fullLogo}
           onClick={handleLogoClick}
