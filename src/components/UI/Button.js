@@ -63,7 +63,7 @@ const IconContainer = styled.span`
   }
 
   @media only screen and (min-width: ${XL_BREAK_POINT_PX}) {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 `;
 

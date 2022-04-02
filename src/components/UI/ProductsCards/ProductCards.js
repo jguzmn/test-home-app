@@ -11,10 +11,10 @@ const CardsContainer = styled.div`
   padding: 0.5rem;
 `;
 
-const ProductsCards = ({ items }) => {
+const ProductsCards = ({ items, xs = 2, sm = 2, md = 3, lg = 4, xl = 5 }) => {
   return (
     <CardsContainer>
-      <Grid xs={2} sm={2} md={3} lg={4}>
+      <Grid xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
         {items.map(({ id, data: itemData }, index) => (
           <Column key={id}>
             <ProductCard
@@ -50,5 +50,10 @@ ProductsCards.propTypes = {
       }),
     })
   ),
+  xs: PropTypes.number,
+  sm: PropTypes.number,
+  md: PropTypes.number,
+  lg: PropTypes.number,
+  xl: PropTypes.number,
 };
 export default ProductsCards;

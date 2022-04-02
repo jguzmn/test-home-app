@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { toNumber } from "lodash";
 import styled, { css } from "styled-components";
 
@@ -83,13 +83,16 @@ const SlideShow = ({
 
   const isItemSelected = (itemIndex) => itemIndex === selectedItemIndex;
 
-  const moveSlideShow = (key) => {
-    setSelectedItemIndex((prevIndex) => {
-      if (key === PREV_KEY && prevIndex === 0) return items.length - 1;
-      if (key === NEXT_KEY && prevIndex === items.length - 1) return 0;
-      return key === NEXT_KEY ? prevIndex + 1 : prevIndex - 1;
-    });
-  };
+  const moveSlideShow = useCallback(
+    (key) => {
+      setSelectedItemIndex((currentIndex) => {
+        if (key === PREV_KEY)
+          return (currentIndex - 1 + items.length) % items.length;
+        if (key === NEXT_KEY) return (currentIndex + 1) % items.length;
+      });
+    },
+    [setSelectedItemIndex, items]
+  );
 
   useEffect(() => {
     if (autoMoveSlideShow) {
@@ -98,8 +101,7 @@ const SlideShow = ({
       }, 20000);
       return () => clearInterval(interval);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [autoMoveSlideShow, moveSlideShow]);
 
   return (
     <SlideShowContainer>

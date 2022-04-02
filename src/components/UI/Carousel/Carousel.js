@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import { range, first, last } from "lodash";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { MAIN_COLOR, GRAY_COLOR } from "constants/styles";
 import { PREV_KEY, NEXT_KEY } from "constants/uiComponentsKeys";
@@ -82,16 +82,20 @@ const getVisibleItemsNumber = (width) => {
 
 const Carousel = ({ items }) => {
   const { width } = useWindowDimensions();
-  const visibleItemsNumber = useRef(getVisibleItemsNumber(width));
-
+  const [visibleItemsNumber, setVisibleItemsNumber] = useState(
+    getVisibleItemsNumber(width)
+  );
   const [visibleItemsIndexes, setVisibleItemsIndexes] = useState(
-    range(visibleItemsNumber.current)
+    range(visibleItemsNumber)
   );
 
   useEffect(() => {
-    visibleItemsNumber.current = getVisibleItemsNumber(width);
-    setVisibleItemsIndexes(range(visibleItemsNumber.current));
+    setVisibleItemsNumber(getVisibleItemsNumber(width));
   }, [width]);
+
+  useEffect(() => {
+    setVisibleItemsIndexes(range(visibleItemsNumber));
+  }, [visibleItemsNumber]);
 
   const removeInitialElement = (array) => [...array.slice(1)];
 
