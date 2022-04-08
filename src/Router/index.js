@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
 
-import { Home, PageNotFound } from "views";
+import routesList from "./routesList";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="*" element={<PageNotFound />} />
+      {routesList.map(({ route, component }, idx) => (
+        <Route key={idx} path={route} element={component} />
+      ))}
     </Routes>
   );
 };
