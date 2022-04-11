@@ -3,14 +3,14 @@ import styled, { css } from "styled-components";
 
 import ProductName from "./ProductName";
 import ProductCategory from "./ProductCategory";
-import Button from "components/UI/Button";
+import { ShopButton } from "components/UI/Buttons";
 import formatAsCurrency from "utils/formatAsCurrency";
 
 const BorderRadiusStyle = css`
   border-radius: 16px;
 `;
 
-const AddToCartButton = styled(Button)`
+const AddToCartButton = styled(ShopButton)`
   background-color: transparent;
 `;
 

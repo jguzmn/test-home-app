@@ -1,4 +1,4 @@
-import { Home, PageNotFound } from "views";
+import { Home, PageNotFound, Products } from "views";
 
 const routesList = [
   {
@@ -11,7 +11,7 @@ const routesList = [
   },
   {
     route: "/products",
-    component: <PageNotFound />,
+    component: <Products />,
   },
   {
     route: "*",

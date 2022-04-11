@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^2.0.6"
+    "babel-plugin-styled-components": "^2.0.6",
+    "react-error-overlay": "^6.0.9"
   }
 }

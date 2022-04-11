@@ -1,26 +1,41 @@
 /* eslint-disable no-unused-vars */
 import { Fragment, useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import mockedBanners from "mocks/en-us/featured-banners.json";
-import mockedCategories from "mocks/en-us/product-categories.json";
 import mockedFeaturedProducts from "mocks/en-us/featured-products.json";
 
 import SlideShow from "components/UI/SlideShow";
 import Title from "components/UI/Title";
 import Carousel from "components/UI/Carousel";
 import Cards from "components/UI/ProductsCards";
+import { MainButton } from "components/UI/Buttons";
+
+import useCategories from "utils/hooks/useCategories";
 
 const CategoriesContainer = styled.div``;
-
 const FeaturedProductsContainer = styled.div``;
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-flow: wrap;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+`;
 
 const Home = () => {
+  const navigate = useNavigate();
   const [bannerImages, setBannerImages] = useState(mockedBanners.results);
-  const [categories, setCategories] = useState(mockedCategories.results);
+  const { categories } = useCategories();
   const [featuredProducts, setFeaturedProducts] = useState(
     mockedFeaturedProducts.results
   );
+  const goToProducts = (event) => {
+    event.preventDefault();
+    navigate("/products", { replace: true });
+    window.scrollTo(0, 0);
+  };
 
   return (
     <Fragment>
@@ -33,6 +48,9 @@ const Home = () => {
         <Title type="main">Featured Products</Title>
         <Cards items={featuredProducts}></Cards>
       </FeaturedProductsContainer>
+      <ButtonContainer>
+        <MainButton onClick={goToProducts}>View All Products</MainButton>
+      </ButtonContainer>
     </Fragment>
   );
 };

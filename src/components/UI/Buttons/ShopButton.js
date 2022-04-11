@@ -17,6 +17,8 @@ import {
 } from "constants/styles";
 import { FadeIn } from "utils/animations";
 
+import BaseButton from "./BaseButton";
+
 const borderRadiusStyle = css`
   border-radius: 5px;
 `;
@@ -99,23 +101,9 @@ const LabelContainer = styled.span`
   }
 `;
 
-const StyledButton = styled.button`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: center;
-  align-items: stretch;
-
-  padding: 0px;
-  position: relative;
+const StyledButton = styled(BaseButton)`
   border: 1px solid ${MAIN_COLOR};
-  margin: 0.5rem 0rem;
-
-  font-size: 1rem;
-  transition: all 0.25s ease;
-
-  ${borderRadiusStyle}
+  padding: 0px;
 
   &:hover {
     ${LabelContainer} {
