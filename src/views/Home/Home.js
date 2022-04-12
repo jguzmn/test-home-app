@@ -2,6 +2,7 @@
 import { Fragment, useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { isNil } from "lodash";
 
 import mockedBanners from "mocks/en-us/featured-banners.json";
 import mockedFeaturedProducts from "mocks/en-us/featured-products.json";
@@ -13,6 +14,7 @@ import Cards from "components/ProductsCards";
 import { MainButton } from "components/UI/Buttons";
 
 import useCategories from "utils/hooks/useCategories";
+import { addQueryParams } from "utils/urlUtils";
 
 const CategoriesContainer = styled.div``;
 const FeaturedProductsContainer = styled.div``;
@@ -31,10 +33,23 @@ const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState(
     mockedFeaturedProducts.results
   );
-  const goToProducts = (event) => {
-    event.preventDefault();
-    navigate("/products", { replace: true });
+
+  const navigateTo = (redirectUrl) => {
+    navigate(redirectUrl);
     window.scrollTo(0, 0);
+  };
+
+  const goToProductsPage = (event) => {
+    event.preventDefault();
+    navigateTo("/products");
+  };
+
+  const handleCarouselClick = (categoryId) => {
+    const redirectUrl = addQueryParams(
+      "/products",
+      !isNil(categoryId) && { category: categoryId }
+    );
+    navigateTo(redirectUrl);
   };
 
   return (
@@ -42,14 +57,18 @@ const Home = () => {
       <SlideShow items={bannerImages} showTitle autoMoveSlideShow></SlideShow>
       <CategoriesContainer>
         <Title type="main">Our Categories</Title>
-        <Carousel items={categories} visibleItemsNumber={3} />
+        <Carousel
+          items={categories}
+          visibleItemsNumber={3}
+          onClick={handleCarouselClick}
+        />
       </CategoriesContainer>
       <FeaturedProductsContainer>
         <Title type="main">Featured Products</Title>
         <Cards items={featuredProducts}></Cards>
       </FeaturedProductsContainer>
       <ButtonContainer>
-        <MainButton onClick={goToProducts}>View All Products</MainButton>
+        <MainButton onClick={goToProductsPage}>View All Products</MainButton>
       </ButtonContainer>
     </Fragment>
   );
