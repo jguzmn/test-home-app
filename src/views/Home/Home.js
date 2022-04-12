@@ -9,7 +9,7 @@ import mockedFeaturedProducts from "mocks/en-us/featured-products.json";
 import SlideShow from "components/UI/SlideShow";
 import Title from "components/UI/Title";
 import Carousel from "components/UI/Carousel";
-import Cards from "components/UI/ProductsCards";
+import Cards from "components/ProductsCards";
 import { MainButton } from "components/UI/Buttons";
 
 import useCategories from "utils/hooks/useCategories";

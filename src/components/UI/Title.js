@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-import { MAIN_COLOR } from "constants/styles";
-import elementTypes from "constants/elementTypes";
+import { MAIN_COLOR, GRAY_COLOR } from "constants/styles";
+import titleTypes from "constants/titleTypes";
 
 import {
   XS_BREAK_POINT_PX,
@@ -39,11 +39,18 @@ const mainTitleStyles = css`
   }
 `;
 
+const secondaryTitleStyles = css`
+  color: ${GRAY_COLOR};
+  font-size: 1.8rem;
+  margin: 0rem;
+`;
+
 const titleStyles = {
-  [elementTypes.main]: mainTitleStyles,
+  [titleTypes.main]: mainTitleStyles,
+  [titleTypes.secondary]: secondaryTitleStyles,
 };
 
-const MainTitle = styled.h2`
+const Title = styled.h2`
   cursor: default;
   font-weight: bold;
 
@@ -52,4 +59,4 @@ const MainTitle = styled.h2`
   letter-spacing: -0.9px;
 `;
 
-export default MainTitle;
+export default Title;
