@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
@@ -14,16 +15,27 @@ const StyledSpan = styled.span`
 `;
 
 const ProductsCounter = ({
-  pageSize,
+  initial,
+  final,
   totalProductsNumber = 0,
   className,
   children,
 }) => (
   <StyledDiv className={className}>
-    <StyledSpan>{pageSize}</StyledSpan>
-    <span> of </span>
-    <StyledSpan> {totalProductsNumber}</StyledSpan>
-    <span> results</span>
+    {totalProductsNumber > 0 ? (
+      <Fragment>
+        <span>Products: </span>
+        <StyledSpan>
+          {initial}-{final}
+        </StyledSpan>
+        <span> of </span>
+        <StyledSpan> {totalProductsNumber}</StyledSpan>
+        <span> results</span>
+      </Fragment>
+    ) : (
+      <span>No results found.</span>
+    )}
+
     {children}
   </StyledDiv>
 );

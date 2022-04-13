@@ -8,6 +8,7 @@ import {
   ProductsCounter,
   ProductsFilters,
   SortDropdown,
+  PageSizeDropdown,
   ProductsCards,
 } from "components/Products";
 import useCategories from "utils/hooks/useCategories";
@@ -43,12 +44,23 @@ const ProductsCounterStyled = styled(ProductsCounter)`
   transform: translateY(-50%);
 `;
 
+const ProductsPageSizeDropdown = styled(PageSizeDropdown)`
+  float: right;
+`;
+
 const SortProductsDropdown = styled(SortDropdown)`
   float: right;
+  margin: 0px 1rem;
 `;
 
 const CATEGORY_ID = "category";
 const DEFAULT_PAGE_SIZE = 20;
+const PAGE_SIZE_OPTIONS = [
+  { label: 10, value: 10 },
+  { label: 20, value: 20 },
+  { label: 50, value: 50 },
+  { label: 100, value: 100 },
+];
 
 const Products = () => {
   const { categories } = useCategories();
@@ -67,6 +79,8 @@ const Products = () => {
 
   const initialFilters = useMemo(getInitialFilters, [getInitialFilters]);
   const [activeFilters, setActiveFilters] = useState(initialFilters);
+
+  const [pageNumber, setPageNumber] = useState(1);
 
   useEffect(() => {
     const categoryFilter = {
@@ -107,8 +121,13 @@ const Products = () => {
         <ProductsSection>
           <SortSection>
             <ProductsCounterStyled
-              pageSize={DEFAULT_PAGE_SIZE}
+              initial={1}
+              final={pageNumber * DEFAULT_PAGE_SIZE}
               totalProductsNumber={productsSize}
+            />
+            <ProductsPageSizeDropdown
+              options={PAGE_SIZE_OPTIONS}
+              initialPageSize={DEFAULT_PAGE_SIZE}
             />
             <SortProductsDropdown />
           </SortSection>

@@ -1,5 +1,7 @@
+import { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { noop } from "lodash";
 
 import { MAIN_COLOR, GRAY_COLOR } from "constants/styles";
 
@@ -30,28 +32,48 @@ const StyledSelect = styled.select`
 
 const DropdownItem = styled.option``;
 
-const Dropdown = ({ itemsList, label, className, children }) => (
-  <StyledDiv className={className}>
-    {label && <StyledLabel>{label}</StyledLabel>}
-    <StyledSelect>
-      {itemsList.map(({ label, value }) => (
-        <DropdownItem key={value} value={value}>
-          {label}
-        </DropdownItem>
-      ))}
-    </StyledSelect>
-    {children}
-  </StyledDiv>
-);
+const Dropdown = ({
+  itemsList,
+  label,
+  defaultSelected,
+  onChange = noop,
+  className,
+  children,
+}) => {
+  const [selectedValue, setSelectedValue] = useState(
+    defaultSelected || itemsList[0]["value"]
+  );
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+    onChange(event.target.value);
+  };
+
+  return (
+    <StyledDiv className={className}>
+      {label && <StyledLabel>{label}</StyledLabel>}
+      <StyledSelect value={selectedValue} onChange={handleChange}>
+        {itemsList.map(({ label, value }) => (
+          <DropdownItem key={value} value={value}>
+            {label}
+          </DropdownItem>
+        ))}
+      </StyledSelect>
+      {children}
+    </StyledDiv>
+  );
+};
 
 Dropdown.propTypes = {
   itemsList: PropTypes.arrayOf(
     PropTypes.shape({
-      label: PropTypes.string,
+      label: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     })
   ).isRequired,
   label: PropTypes.string,
+  defaultSelected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChange: PropTypes.func,
   className: PropTypes.string,
   children: PropTypes.node,
 };
