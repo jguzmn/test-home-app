@@ -5,8 +5,6 @@ import { reduce } from "lodash";
 import Accordion from "components/UI/Accordion";
 import CheckboxGroup from "components/UI/CheckboxGroup";
 
-import Title from "components/UI/Title";
-
 const ProductsFilters = ({ filters, onFiltersSelectionChange }) => {
   const handleCheckboxGroupChange = useCallback(
     (filterState, filterId) => {
@@ -37,7 +35,6 @@ const ProductsFilters = ({ filters, onFiltersSelectionChange }) => {
 
   return (
     <Fragment>
-      <Title type="secondary">Filter By</Title>
       <Accordion items={accordionItems}></Accordion>
     </Fragment>
   );

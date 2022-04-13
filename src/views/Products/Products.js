@@ -4,7 +4,12 @@ import styled from "styled-components";
 import { isNil } from "lodash";
 
 import Title from "components/UI/Title";
-import ProductsFilters from "components/ProductsFilters";
+import {
+  ProductsCounter,
+  ProductsFilters,
+  SortDropdown,
+  ProductsCards,
+} from "components/Products";
 import useCategories from "utils/hooks/useCategories";
 import useProducts from "utils/hooks/useProducts";
 
@@ -14,20 +19,40 @@ const ContentContainer = styled.div`
 `;
 
 const FiltersSection = styled.section`
-  min-width: 20rem;
+  min-width: 18rem;
   padding: 0.5rem 1rem;
 `;
 
 const ProductsSection = styled.section`
   display: flex;
+  flex-direction: column;
   width: 100%;
 `;
 
+const SortSection = styled.div`
+  display: block;
+  padding: 1rem;
+  position: relative;
+`;
+
+const ProductsCounterStyled = styled(ProductsCounter)`
+  float: left;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+`;
+
+const SortProductsDropdown = styled(SortDropdown)`
+  float: right;
+`;
+
 const CATEGORY_ID = "category";
+const DEFAULT_PAGE_SIZE = 20;
 
 const Products = () => {
   const { categories } = useCategories();
-  const { products } = useProducts();
+  const { products, productsSize } = useProducts();
   const [filtersList, setFiltersList] = useState([]);
 
   const [searchParams] = useSearchParams();
@@ -79,7 +104,24 @@ const Products = () => {
             onFiltersSelectionChange={handleFiltersChange}
           ></ProductsFilters>
         </FiltersSection>
-        <ProductsSection></ProductsSection>
+        <ProductsSection>
+          <SortSection>
+            <ProductsCounterStyled
+              pageSize={DEFAULT_PAGE_SIZE}
+              totalProductsNumber={productsSize}
+            />
+            <SortProductsDropdown />
+          </SortSection>
+          <ProductsCards
+            items={products}
+            xs={2}
+            sm={2}
+            md={2}
+            lg={3}
+            xl={4}
+            xxl={5}
+          ></ProductsCards>
+        </ProductsSection>
       </ContentContainer>
     </Fragment>
   );

@@ -8,6 +8,7 @@ import {
   MD_BREAK_POINT_PX,
   LG_BREAK_POINT_PX,
   XL_BREAK_POINT_PX,
+  XXL_BREAK_POINT_PX,
 } from "constants/styles";
 
 const Container = styled.div`
@@ -42,6 +43,12 @@ const Container = styled.div`
   }
 
   @media only screen and (min-width: ${XL_BREAK_POINT_PX}) {
+    & {
+      padding: 0 calc(var(--base-padding) * 3.25);
+    }
+  }
+
+  @media only screen and (min-width: ${XXL_BREAK_POINT_PX}) {
     & {
       padding: 0 calc(var(--base-padding) * 4);
     }

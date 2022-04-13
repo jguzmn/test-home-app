@@ -17,6 +17,7 @@ const Label = styled.label`
   flex-wrap: nowrap;
   width: fit-content;
   padding: 0.35rem 0rem;
+  color: ${({ checked }) => (checked ? "black" : GRAY_COLOR)};
 `;
 
 const CheckboxInput = styled.input`
@@ -52,7 +53,7 @@ const Checkbox = ({
   );
 
   return (
-    <Label htmlFor={id}>
+    <Label htmlFor={id} checked={isChecked}>
       <CheckboxIcon
         icon={isChecked ? faSquareCheck : faSquare}
         checked={isChecked}

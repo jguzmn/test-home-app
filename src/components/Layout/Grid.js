@@ -10,6 +10,7 @@ import {
   MD_BREAK_POINT_PX,
   LG_BREAK_POINT_PX,
   XL_BREAK_POINT_PX,
+  XXL_BREAK_POINT_PX,
 } from "constants/styles";
 
 const ColumnWidthStyles = (value) => css`
@@ -61,6 +62,12 @@ const Grid = styled.div`
       ${({ xl }) => !isNil(xl) && ColumnWidthStyles(xl)}
     }
   }
+
+  @media only screen and (min-width: ${XXL_BREAK_POINT_PX}) {
+    & ${Column} {
+      ${({ xxl }) => !isNil(xxl) && ColumnWidthStyles(xxl)}
+    }
+  }
 `;
 
 /* This parameters indicate the amount of items that the user wants to render in a single line */
@@ -70,6 +77,7 @@ Grid.propTypes = {
   md: PropTypes.number,
   lg: PropTypes.number,
   xl: PropTypes.number,
+  xxl: PropTypes.number,
 };
 
 export default Grid;
