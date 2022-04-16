@@ -22,7 +22,7 @@ const ProductsCounter = ({
   children,
 }) => (
   <StyledDiv className={className}>
-    {totalProductsNumber > 0 ? (
+    {totalProductsNumber > 0 && final > 0 ? (
       <Fragment>
         <span>Products: </span>
         <StyledSpan>
