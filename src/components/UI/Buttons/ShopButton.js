@@ -26,13 +26,13 @@ const borderRadiusStyle = css`
 const ShopIcon = styled(FontAwesomeIcon)`
   display: flex;
 
-  ${FadeIn}
+  ${FadeIn(0.5)}
 `;
 
 const AddToCartIcon = styled(FontAwesomeIcon)`
   display: none;
 
-  ${FadeIn}
+  ${FadeIn(0.5)}
 `;
 
 const IconContainer = styled.span`

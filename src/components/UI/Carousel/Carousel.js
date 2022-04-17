@@ -40,7 +40,7 @@ const CarouselContainer = styled.div`
 `;
 
 const CarouselColumn = styled(Column)`
-  ${FadeIn}
+  ${FadeIn(1)}
   display: flex;
 `;
 

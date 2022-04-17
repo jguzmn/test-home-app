@@ -33,7 +33,7 @@ const CheckboxIcon = styled(FontAwesomeIcon)`
   margin-right: 0.5rem;
   color: ${({ checked }) => (checked ? MAIN_COLOR : GRAY_COLOR)};
 
-  ${FadeIn};
+  ${FadeIn(0.5)};
 `;
 
 const Checkbox = ({

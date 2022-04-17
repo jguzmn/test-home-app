@@ -19,7 +19,7 @@ export const SM_BREAK_POINT = 576;
 export const MD_BREAK_POINT = 768;
 export const LG_BREAK_POINT = 992;
 export const XL_BREAK_POINT = 1200;
-export const XXL_BREAK_POINT = 1500;
+export const XXL_BREAK_POINT = 1550;
 
 export const XS_BREAK_POINT_PX = `${XS_BREAK_POINT}px`;
 export const SM_BREAK_POINT_PX = `${SM_BREAK_POINT}px`;

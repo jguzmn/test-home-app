@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
-import { isNil } from "lodash";
+import { isNil, ceil } from "lodash";
 
 import Title from "components/UI/Title";
 import Dropdown from "components/UI/Dropdown";
@@ -10,6 +10,7 @@ import {
   ProductsFilters,
   ProductsCards,
 } from "components/Products";
+import Pagination from "components/UI/Pagination";
 
 import { A_TO_Z, Z_TO_A, LOW_TO_HIGH, HIGH_TO_LOW } from "constants/sort";
 
@@ -100,11 +101,16 @@ const Products = () => {
   }, [searchParams]);
 
   const [activeFilters, setActiveFilters] = useState(initialFilters);
-
+  const [totalFilteredProducts, setTotalFilteredProducts] =
+    useState(productsSize);
   const [itemsPerPage, setItemsPerPage] = useState(DEFAULT_PAGE_SIZE);
-  const [sortBy, setSortBy] = useState(A_TO_Z);
+  const [numOfPages, setNumOfPages] = useState(
+    ceil(totalFilteredProducts / itemsPerPage)
+  );
   const [selectedPageNumber, setSelectedPageNumber] =
     useState(DEFAULT_INITIAL_PAGE);
+
+  const [sortBy, setSortBy] = useState(A_TO_Z);
   const [displayedProducts, setDisplayedProducts] = useState([]);
   const [totalDisplayedProducts, setTotalDisplayedProducts] =
     useState(productsSize);
@@ -152,6 +158,7 @@ const Products = () => {
     [sortBy]
   );
 
+  // Handle filters changes depending on the categories
   useEffect(() => {
     const categoryFilter = {
       filterId: CATEGORY_ID,
@@ -171,10 +178,12 @@ const Products = () => {
     });
   }, [categories, initialFilters]);
 
+  // Filter and sort displayed products
   useEffect(() => {
     const filteredProducts = areFiltersActive
       ? filterProducts(...[products])
       : products;
+    setTotalFilteredProducts(filteredProducts.length);
     const sortedProducts = sortProducts([...filteredProducts]);
     const pagedProducts = sortedProducts.slice(
       (selectedPageNumber - 1) * itemsPerPage,
@@ -192,6 +201,12 @@ const Products = () => {
     sortBy,
     itemsPerPage,
   ]);
+
+  // Handle the num of pages in pagination
+  useEffect(
+    () => setNumOfPages(ceil(totalFilteredProducts / itemsPerPage)),
+    [totalFilteredProducts, itemsPerPage]
+  );
 
   const handleFiltersChange = useCallback(
     (filtersState) => {
@@ -214,6 +229,13 @@ const Products = () => {
     [setSortBy]
   );
 
+  const onPageSelected = useCallback(
+    (pageNumber) => {
+      setSelectedPageNumber(pageNumber);
+    },
+    [setSelectedPageNumber]
+  );
+
   return (
     <Fragment>
       <Title type="main">Our Products</Title>
@@ -227,8 +249,10 @@ const Products = () => {
         <ProductsSection>
           <SortSection>
             <ProductsCounterStyled
-              initial={1}
-              final={totalDisplayedProducts}
+              initial={(selectedPageNumber - 1) * itemsPerPage + 1}
+              final={
+                (selectedPageNumber - 1) * itemsPerPage + totalDisplayedProducts
+              }
               totalProductsNumber={productsSize}
             />
             <ItemsPerPageDropdown
@@ -253,6 +277,11 @@ const Products = () => {
             xl={4}
             xxl={5}
           ></ProductsCards>
+          <Pagination
+            defaultSelectedPage={DEFAULT_INITIAL_PAGE}
+            numOfPages={numOfPages}
+            onPageSelected={onPageSelected}
+          />
         </ProductsSection>
       </ContentContainer>
     </Fragment>
