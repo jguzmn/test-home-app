@@ -2,22 +2,19 @@ import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
 const OpenStyle = css`
-  transform: scaleY(1);
+  display: flex;
 `;
 
 const StyledDiv = styled.div`
-  display: flex;
+  display: none;
   flex-direction: column;
   width: -webkit-fill-available;
   padding: 0 1.2rem;
   margin: 0.5rem 0;
 
   overflow: hidden;
-  position: absolute;
   background-color: white;
 
-  transform: scaleY(0);
-  transform-origin: top;
   transition: all 0.25s ease-out;
 
   ${({ isOpen }) => isOpen && OpenStyle}

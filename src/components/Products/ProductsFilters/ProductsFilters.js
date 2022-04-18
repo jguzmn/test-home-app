@@ -1,11 +1,17 @@
 import PropTypes from "prop-types";
-import { memo, Fragment, useCallback } from "react";
+import { memo, useCallback } from "react";
 import { reduce } from "lodash";
 
 import Accordion from "components/UI/Accordion";
 import CheckboxGroup from "components/UI/CheckboxGroup";
 
+import { SM_BREAK_POINT } from "constants/styles";
+
+import useWindowDimensions from "utils/hooks/useWindowDimensions";
+
 const ProductsFilters = ({ filters, onFiltersSelectionChange }) => {
+  const { width } = useWindowDimensions();
+
   const handleCheckboxGroupChange = useCallback(
     (filterState, filterId) => {
       onFiltersSelectionChange({
@@ -21,7 +27,7 @@ const ProductsFilters = ({ filters, onFiltersSelectionChange }) => {
   );
 
   const accordionItems = filters.map(({ filterId, filterName, options }) => ({
-    filterId,
+    id: filterId,
     label: filterName,
     content: (
       <CheckboxGroup
@@ -34,9 +40,10 @@ const ProductsFilters = ({ filters, onFiltersSelectionChange }) => {
   }));
 
   return (
-    <Fragment>
-      <Accordion items={accordionItems}></Accordion>
-    </Fragment>
+    <Accordion
+      items={accordionItems}
+      defaultOpen={width > SM_BREAK_POINT}
+    ></Accordion>
   );
 };
 

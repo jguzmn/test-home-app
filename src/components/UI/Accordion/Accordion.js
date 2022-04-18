@@ -1,13 +1,12 @@
+import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 import AccordionItemContent from "./AccordionItemContent";
-import useToggle from "utils/hooks/useToggle";
 
 const AccordionItemContainer = styled.div`
-  position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
@@ -35,32 +34,47 @@ const AccordionButton = styled.button`
   transition: 0.4s;
 `;
 
-const Accordion = ({ items }) => {
-  const toggle = useToggle;
+const Accordion = ({ items, defaultOpen }) => {
+  const [openItems, setOpenItems] = useState({});
 
-  return items.map(({ label, content }, idx) => {
-    const [isItemOpen, setIsItemOpen] = toggle(idx === 0 ? true : false);
-    return (
-      <AccordionItemContainer key={idx}>
-        <AccordionButton onClick={setIsItemOpen}>
-          {label}
-          {<AccordionIcon icon={isItemOpen ? faMinus : faPlus} />}
-        </AccordionButton>
-        <AccordionItemContent isOpen={isItemOpen}>
-          {content}
-        </AccordionItemContent>
-      </AccordionItemContainer>
-    );
-  });
+  useEffect(() => {
+    setOpenItems({
+      ...items.reduce((res, item) => {
+        return { ...res, [item.id]: defaultOpen || false };
+      }, {}),
+    });
+  }, [items, defaultOpen]);
+
+  const setOpenItemState = (itemId) =>
+    setOpenItems((prevOpenItems) => {
+      return {
+        ...prevOpenItems,
+        [itemId]: !prevOpenItems[itemId],
+      };
+    });
+
+  return items.map(({ id, label, content }, idx) => (
+    <AccordionItemContainer key={idx}>
+      <AccordionButton onClick={() => setOpenItemState(id)}>
+        {label}
+        {<AccordionIcon icon={!!openItems[id] ? faMinus : faPlus} />}
+      </AccordionButton>
+      <AccordionItemContent isOpen={!!openItems[id]}>
+        {content}
+      </AccordionItemContent>
+    </AccordionItemContainer>
+  ));
 };
 
 Accordion.propTypes = {
   items: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string,
       label: PropTypes.string,
       content: PropTypes.node,
     })
   ).isRequired,
+  defaultOpen: PropTypes.bool,
 };
 
 export default Accordion;

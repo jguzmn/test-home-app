@@ -13,6 +13,12 @@ import {
 import Pagination from "components/UI/Pagination";
 
 import { A_TO_Z, Z_TO_A, LOW_TO_HIGH, HIGH_TO_LOW } from "constants/sort";
+import {
+  SM_BREAK_POINT_PX,
+  LG_BREAK_POINT_PX,
+  XL_BREAK_POINT_PX,
+  XXL_BREAK_POINT_PX,
+} from "constants/styles";
 
 import useCategories from "utils/hooks/useCategories";
 import useProducts from "utils/hooks/useProducts";
@@ -20,11 +26,23 @@ import useProducts from "utils/hooks/useProducts";
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media only screen and (max-width: ${LG_BREAK_POINT_PX}) {
+    flex-direction: column;
+  }
 `;
 
 const FiltersSection = styled.section`
   min-width: 18rem;
   padding: 0.5rem 1rem;
+
+  @media only screen and (max-width: ${XXL_BREAK_POINT_PX}) {
+    min-width: 15rem;
+  }
+
+  @media only screen and (max-width: ${XL_BREAK_POINT_PX}) {
+    min-width: 12rem;
+  }
 `;
 
 const ProductsSection = styled.section`
@@ -34,26 +52,43 @@ const ProductsSection = styled.section`
 `;
 
 const SortSection = styled.div`
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
   padding: 1rem;
-  position: relative;
+  align-items: center;
+  justify-content: space-between;
+
+  @media only screen and (max-width: ${SM_BREAK_POINT_PX}) {
+    padding: 0.5rem 1rem;
+  }
 `;
 
 const ProductsCounterStyled = styled(ProductsCounter)`
   float: left;
-  position: absolute;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
+
+  @media only screen and (max-width: ${SM_BREAK_POINT_PX}) {
+    flex-basis: 100%;
+    order: 3;
+    margin-top: 1rem;
+  }
 `;
 
 const ItemsPerPageDropdown = styled(Dropdown)`
   float: right;
+  margin-left: auto;
+
+  @media only screen and (max-width: ${SM_BREAK_POINT_PX}) {
+    margin-left: inherit;
+  }
 `;
 
 const SortByDropdown = styled(Dropdown)`
   float: right;
   margin: 0px 1rem;
+
+  @media only screen and (max-width: ${SM_BREAK_POINT_PX}) {
+    margin: 0px;
+  }
 `;
 
 const CATEGORY_ID = "category";
@@ -173,9 +208,8 @@ const Products = () => {
         })
         .sort(),
     };
-    setFiltersList((prevFilters) => {
-      return [categoryFilter, ...prevFilters.slice(1)];
-    });
+
+    setFiltersList((prevFilters) => [categoryFilter, ...prevFilters.slice(1)]);
   }, [categories, initialFilters]);
 
   // Filter and sort displayed products
@@ -272,7 +306,7 @@ const Products = () => {
             items={displayedProducts}
             xs={2}
             sm={2}
-            md={2}
+            md={3}
             lg={3}
             xl={4}
             xxl={5}
