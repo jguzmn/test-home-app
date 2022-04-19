@@ -11,16 +11,19 @@ export const GRAY_COLOR = "rgb(110, 109, 122)";
   - Small (SM): >=576px
   - Medium (MD): >=768px
   - Large (LG): >=992px
-  - Extra large (XL): >=1200px
+  - Extra Large (XL): >=1200px
+  - Extra Extra Large (XXL) >= 1500px
 */
 export const XS_BREAK_POINT = 575;
 export const SM_BREAK_POINT = 576;
 export const MD_BREAK_POINT = 768;
 export const LG_BREAK_POINT = 992;
 export const XL_BREAK_POINT = 1200;
+export const XXL_BREAK_POINT = 1550;
 
 export const XS_BREAK_POINT_PX = `${XS_BREAK_POINT}px`;
 export const SM_BREAK_POINT_PX = `${SM_BREAK_POINT}px`;
 export const MD_BREAK_POINT_PX = `${MD_BREAK_POINT}px`;
 export const LG_BREAK_POINT_PX = `${LG_BREAK_POINT}px`;
 export const XL_BREAK_POINT_PX = `${XL_BREAK_POINT}px`;
+export const XXL_BREAK_POINT_PX = `${XXL_BREAK_POINT}px`;

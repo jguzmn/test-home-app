@@ -23,33 +23,28 @@ const ControlButton = styled(FontAwesomeIcon)`
   transition: 0.6s ease;
 `;
 
-const PreviousButton = ({ className, children, handleClick = noop }) => {
-  return (
-    <ControlButton
-      className={className}
-      icon={faChevronLeft}
-      onClick={handleClick}
-    >
-      {children}
-    </ControlButton>
-  );
-};
-
+const PreviousButton = ({ className, children, handleClick = noop }) => (
+  <ControlButton
+    className={className}
+    icon={faChevronLeft}
+    onClick={handleClick}
+  >
+    {children}
+  </ControlButton>
+);
 PreviousButton.propTypes = {
   handleClick: PropTypes.func,
 };
 
-const NextButton = ({ className, children, handleClick = noop }) => {
-  return (
-    <ControlButton
-      className={className}
-      icon={faChevronRight}
-      onClick={handleClick}
-    >
-      {children}
-    </ControlButton>
-  );
-};
+const NextButton = ({ className, children, handleClick = noop }) => (
+  <ControlButton
+    className={className}
+    icon={faChevronRight}
+    onClick={handleClick}
+  >
+    {children}
+  </ControlButton>
+);
 
 NextButton.propTypes = {
   handleClick: PropTypes.func,

@@ -40,7 +40,7 @@ const CarouselContainer = styled.div`
 `;
 
 const CarouselColumn = styled(Column)`
-  ${FadeIn}
+  ${FadeIn(1)}
   display: flex;
 `;
 
@@ -80,7 +80,7 @@ const getVisibleItemsNumber = (width) => {
   if (width >= XL_BREAK_POINT) return XL_SIZE_VISIBLE_ITEMS_NUMBER;
 };
 
-const Carousel = ({ items }) => {
+const Carousel = ({ items, onClick }) => {
   const { width } = useWindowDimensions();
   const [visibleItemsNumber, setVisibleItemsNumber] = useState(
     getVisibleItemsNumber(width)
@@ -130,9 +130,11 @@ const Carousel = ({ items }) => {
           return (
             <CarouselColumn key={id}>
               <CarouselItem
+                key={id}
                 src={itemData?.main_image?.url}
                 alt={itemData?.main_image?.alt}
                 label={itemData.name}
+                onClick={() => onClick(id)}
               ></CarouselItem>
             </CarouselColumn>
           );
@@ -155,6 +157,7 @@ Carousel.propTypes = {
       }),
     })
   ),
+  onClick: PropTypes.func,
 };
 
 export default Carousel;

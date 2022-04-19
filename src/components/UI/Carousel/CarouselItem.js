@@ -61,13 +61,8 @@ const ItemContainer = styled.div`
   }
 `;
 
-const CarouselItem = ({
-  src = "",
-  alt = "",
-  label = "",
-  handleClick = noop,
-}) => (
-  <ItemContainer onClick={handleClick}>
+const CarouselItem = ({ src = "", alt = "", label = "", onClick = noop }) => (
+  <ItemContainer onClick={onClick}>
     <ItemImage src={src} alt={alt} />
     <ItemOverlay>
       <ItemLabel>{label.toLocaleUpperCase()}</ItemLabel>
@@ -79,6 +74,7 @@ CarouselItem.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
   label: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default CarouselItem;

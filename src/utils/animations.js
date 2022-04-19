@@ -1,6 +1,6 @@
 import { css } from "styled-components";
 
-const FadeIn = css`
+const FadeIn = (time) => css`
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -11,7 +11,7 @@ const FadeIn = css`
   }
 
   animation-name: fadeIn;
-  animation-duration: 1s;
+  animation-duration: ${time}s;
 `;
 
 export { FadeIn };
